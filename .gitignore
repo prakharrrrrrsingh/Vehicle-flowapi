@@ -1,0 +1,9 @@
+# Node modules
+vehicle-api-server/node_modules
+vehicle-client/node_modules
+
+# Env files
+vehicle-api-server/.env
+
+# Logs
+*.log

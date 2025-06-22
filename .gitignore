@@ -1,9 +1,48 @@
-# Node modules
-vehicle-api-server/node_modules
-vehicle-client/node_modules
+# ==========================
+# 📦 NODE MODULES
+# ==========================
+vehicle-api-server/node_modules/
+vehicle-client/node_modules/
 
-# Env files
+# ==========================
+# 🔐 ENVIRONMENT VARIABLES
+# ==========================
 vehicle-api-server/.env
+vehicle-client/.env
 
-# Logs
+# ==========================
+# 🧪 TEST OUTPUT & COVERAGE
+# ==========================
+coverage/
+*.lcov
+jest-output.log
+
+# ==========================
+# ⚙️ LOG FILES
+# ==========================
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================
+# 💻 OS & EDITOR JUNK
+# ==========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================
+# 🚀 BUILD FILES (Frontend)
+# ==========================
+vehicle-client/build/
+
+# ==========================
+# 🗑️ BACKUP / TEMP FILES
+# ==========================
+*.bak
+*.tmp
+~$*

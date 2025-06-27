@@ -1,21 +1,78 @@
 const express = require('express');
 const cors = require('cors');
 const Vehicle = require('./models/Vehicle');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const app = express();
 
-// ✅ Enable CORS for Netlify frontend
+// CORS
 app.use(cors({
-  origin: 'https://courageous-lolly-d50a78.netlify.app', // update this if frontend domain changes
+  origin: 'https://courageous-lolly-d50a78.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 
 app.use(express.json());
 
-// ------------------ API Routes ------------------
+/* --------------------------------------------
+   Swagger OpenAPI Setup
+--------------------------------------------- */
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Vehicle API',
+      version: '1.0.0',
+      description: 'Vehicle Rental API for CRUD operations',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+      },
+    ],
+  },
+  apis: ['./app.js'], // 👈 This file
+};
 
-// ✅ GET all vehicles
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+/* --------------------------------------------
+   API Routes
+--------------------------------------------- */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Vehicle:
+ *       type: object
+ *       required:
+ *         - name
+ *         - type
+ *       properties:
+ *         _id:
+ *           type: string
+ *         name:
+ *           type: string
+ *         type:
+ *           type: string
+ *         available:
+ *           type: boolean
+ *         pricePerHour:
+ *           type: number
+ */
+
+/**
+ * @swagger
+ * /api/vehicles:
+ *   get:
+ *     summary: Get all vehicles
+ *     responses:
+ *       200:
+ *         description: List of vehicles
+ */
 app.get('/api/vehicles', async (req, res) => {
   try {
     const vehicles = await Vehicle.find();
@@ -25,7 +82,23 @@ app.get('/api/vehicles', async (req, res) => {
   }
 });
 
-// ✅ GET single vehicle by ID
+/**
+ * @swagger
+ * /api/vehicles/{id}:
+ *   get:
+ *     summary: Get vehicle by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A vehicle
+ *       404:
+ *         description: Vehicle not found
+ */
 app.get('/api/vehicles/:id', async (req, res) => {
   try {
     const vehicle = await Vehicle.findById(req.params.id);
@@ -36,7 +109,21 @@ app.get('/api/vehicles/:id', async (req, res) => {
   }
 });
 
-// ✅ POST create new vehicle
+/**
+ * @swagger
+ * /api/vehicles:
+ *   post:
+ *     summary: Create a new vehicle
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Vehicle'
+ *     responses:
+ *       201:
+ *         description: Created
+ */
 app.post('/api/vehicles', async (req, res) => {
   try {
     const newVehicle = new Vehicle(req.body);
@@ -47,7 +134,27 @@ app.post('/api/vehicles', async (req, res) => {
   }
 });
 
-// ✅ PUT update vehicle
+/**
+ * @swagger
+ * /api/vehicles/{id}:
+ *   put:
+ *     summary: Update vehicle
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Vehicle'
+ *     responses:
+ *       200:
+ *         description: Updated vehicle
+ */
 app.put('/api/vehicles/:id', async (req, res) => {
   try {
     const updated = await Vehicle.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -58,7 +165,21 @@ app.put('/api/vehicles/:id', async (req, res) => {
   }
 });
 
-// ✅ DELETE vehicle
+/**
+ * @swagger
+ * /api/vehicles/{id}:
+ *   delete:
+ *     summary: Delete a vehicle
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Vehicle deleted
+ */
 app.delete('/api/vehicles/:id', async (req, res) => {
   try {
     const deleted = await Vehicle.findByIdAndDelete(req.params.id);
@@ -69,5 +190,12 @@ app.delete('/api/vehicles/:id', async (req, res) => {
   }
 });
 
-// ✅ Export app
-module.exports = app;
+/* --------------------------------------------
+   Server Startup
+--------------------------------------------- */
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});

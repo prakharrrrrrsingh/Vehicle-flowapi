@@ -64,7 +64,7 @@ This project uses Jest for:
 
 📸 **Test Coverage Screenshot**:
 
-![Coverage](./coverage/coverage-screenshot.png)
+![Coverage](./vehicle-api-server/coverage-screenshot.png)
 
 
 ✅ API Endpoints

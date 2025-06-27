@@ -1,0 +1,39 @@
+name: Keploy API Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-keploy-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd vehicle-api-server
+          npm install
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: '5.0'
+
+      - name: Run App and Keploy Test
+        run: |
+          cd vehicle-api-server
+          docker network create keploy-network
+          docker run -d -p 3000:3000 --name vehicle-api-container --network keploy-network vehicle-api
+          curl -sL https://github.com/keploy/keploy/releases/latest/download/keploy-linux-amd64 -o keploy
+          chmod +x keploy
+          ./keploy test --container-name vehicle-api-container --network-name keploy-network -c "echo testing"

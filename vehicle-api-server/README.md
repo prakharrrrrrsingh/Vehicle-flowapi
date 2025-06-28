@@ -6,11 +6,13 @@ A RESTful API for managing vehicle data — built using **Express.js**, **MongoD
 
 ## 🛠 Tech Stack
 
-- **Backend Framework**: Express.js
-- **Database**: MongoDB (via Mongoose)
-- **Environment Variables**: dotenv
-- **Testing**: Jest, Supertest, mongodb-memory-server
-- **Code Coverage**: Jest with built-in coverage tools
+- **Backend Framework**: Express.js  
+- **Database**: MongoDB (via Mongoose)  
+- **Environment Variables**: dotenv  
+- **Testing**: Jest, Supertest, mongodb-memory-server  
+- **Code Coverage**: Jest with built-in coverage tools  
+- **AI Testing**: [Keploy](https://keploy.io/)  
+- **Documentation**: Swagger (OpenAPI)
 
 ---
 
@@ -33,6 +35,9 @@ vehicle-api-server/
 ├── jest.config.js
 └── package.json
 
+yaml
+Copy
+Edit
 
 ---
 
@@ -44,64 +49,79 @@ vehicle-api-server/
 git clone https://github.com/prakharrrrrrsingh/Vehicle-flowapi.git
 cd Vehicle-flowapi/vehicle-api-server
 npm install
-
-Start the Server
+2. Start the Server
+bash
+Copy
+Edit
 npm start
-
 🧪 Running Tests
 This project uses Jest for:
 
-✅ Unit tests
+✅ Unit Tests
+✅ API Endpoint Tests (with Supertest)
+✅ Integration Tests using in-memory MongoDB
 
-✅ API endpoint tests (with Supertest)
+✅ Test Coverage
+Achieved over 88%+ test coverage including unit, API, and integration tests.
 
-✅ Integration tests using in-memory MongoDB
-
-
-## ✅ Test Coverage
-
-> Achieved over **88%+ test coverage** including unit, API, and integration tests.
-
-📸 **Test Coverage Screenshot**:
-
-![Coverage](./coverage-screenshot.png)
+📸 Test Coverage Screenshot:
 
 
-✅ API Endpoints
 
-| Method | Endpoint            | Description         |
-| ------ | ------------------- | ------------------- |
-| GET    | `/api/vehicles`     | Get all vehicles    |
-| GET    | `/api/vehicles/:id` | Get a vehicle by ID |
-| POST   | `/api/vehicles`     | Add a new vehicle   |
-| PUT    | `/api/vehicles/:id` | Update a vehicle    |
-| DELETE | `/api/vehicles/:id` | Delete a vehicle    |
-
-🤝 Contribution
-Pull requests are welcome for improvements and suggestions.
-
-
-📢 About
-This project was built as part of a backend testing assignment to implement:
-
-Unit tests
-
-Integration tests
-
-End-to-end API testing
-
-Automated coverage evaluation
-
-📬 Contact
-Made by Prakhar Singh
-
-📧 22052485@kiit.ac.in
-
-🔗 https://www.linkedin.com/in/prakharrrrr-singh-/
-
-💻 https://github.com/prakharrrrrrsingh
+📋 API Endpoints
+Method	Endpoint	Description
+GET	/api/vehicles	Get all vehicles
+GET	/api/vehicles/:id	Get a vehicle by ID
+POST	/api/vehicles	Add a new vehicle
+PUT	/api/vehicles/:id	Update a vehicle
+DELETE	/api/vehicles/:id	Delete a vehicle
 
 ## 📊 Keploy Test Report
 
 ![Keploy Test Report](assets/keploy-test-report.png)
 
+## 🌐 Chrome Extension API Testing
+
+![Weather Test](assets/keploy-weather-test.png)  
+![Zomato Test](assets/keploy-zomato-tests.png)
+
+
+
+🤝 Contribution
+Pull requests are welcome for improvements and suggestions.
+
+📢 About
+This project was built as part of a backend testing assignment to implement:
+
+Unit Tests
+
+Integration Tests
+
+End-to-End API Testing
+
+AI-Powered Testing with Keploy
+
+OpenAPI Documentation
+
+CI/CD Pipeline Integration
+
+📬 Contact
+Made by Prakhar Singh
+
+📧 Email: prakhar6122@gmail.com
+🔗 LinkedIn
+💻 GitHub
+
+yaml
+Copy
+Edit
+
+---
+
+### ✅ Now What?
+
+1. **Push this `README.md` to GitHub**
+   ```bash
+   git add README.md
+   git commit -m "Finalized README with Keploy AI Test details"
+   git push origin main
